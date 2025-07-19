@@ -1,0 +1,293 @@
+/* General Styling */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #90ee90;
+  padding: 10px 20px;
+}
+
+
+/* Main Content */
+.main-content {
+  padding: 20px;  text-align: center;
+}
+
+/* client/src/cssComponent/ReviewsCarousel.css */
+
+.reviews-section {
+  margin: 2rem 0;
+}
+
+.reviews-section h3 {
+  text-align: center;
+  color: var(--primary);
+  margin-bottom: 1rem;
+}
+
+/* padding lateral para los slides */
+.reviews-carousel {
+  padding: 0 1rem;
+}
+
+/* cada slide individual */
+.review-slide {
+  padding: 0 0.5rem;
+  box-sizing: border-box;
+}
+
+/* card idéntica a tu grid pero dentro del slider */
+.review-card {
+  background: var(--bg-card);
+  border-radius: 8px;
+  box-shadow: 0 2px 5px var(--shadow);
+  overflow: hidden;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.review-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 10px var(--shadow);
+}
+
+.review-card img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+}
+
+.review-content {
+  padding: 1rem;
+  flex: 1;
+}
+
+.review-content h4 {
+  margin: 0 0 0.5rem;
+  color: var(--primary);
+}
+
+.review-content .address {
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 0.5rem;
+}
+
+.review-content .rating {
+  color: var(--accent);
+  margin-bottom: 0.5rem;
+}
+
+.reviewer {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.reviewer img {
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  margin-right: 0.75rem;
+}
+
+.reviewer-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.comment {
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+
+
+
+/* Footer */
+.footer {
+  background-color: #f0f0f0;
+  text-align: center;
+  padding: 10px 0;
+  margin-top: 20px;
+  bottom: 0;
+}
+/* General navbar styles */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #4caf50;
+  padding: 10px 20px;
+  color: white;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.nav-links button {
+  background-color: white;
+  color: #4caf50;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.nav-links button:hover {
+  background-color: #45a049;
+  color: white;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.search-bar input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.search-bar button {
+  background-color: white;
+  color: #4caf50;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.search-bar button:hover {
+  background-color: #45a049;
+  color: white;
+}
+
+/* Asegura que el html y body llenen la pantalla */
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Contenedor principal: flex column y 100% viewport */
+.home-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* El <main> absorbe el espacio disponible */
+.home-page main {
+  flex: 1;
+}
+
+/* Empuja el footer al fondo */
+.home-page footer {
+  margin-top: auto;
+}
+
+
+/* src/cssComponent/VoiceSearch.css */
+
+.voice-search {
+  display: inline-block;
+  margin-left: 0.5rem;
+}
+
+.btn-voice {
+  background-color: var(--color-secondary);
+  color: #fff;
+  border-radius: 50%;
+  width: 2.5rem;
+  height: 2.5rem;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  transition: background-color var(--transition-speed);
+}
+
+.btn-voice:hover {
+  background-color: var(--color-primary);
+}
+
+@media (max-width: 480px) {
+  .btn-voice {
+    width: 2rem;
+    height: 2rem;
+    font-size: 1rem;
+  }
+}
+/* src/components/SearchBar.css */
+
+.search-form {
+  display: flex;
+  align-items: center;
+}
+
+.search-form input[type="text"] {
+  width: 200px;
+  padding: 0.4rem 0.6rem;
+  border: 1px solid #ccc;
+  border-radius: 4px 0 0 4px;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.search-form input[type="text"]:focus {
+  border-color: var(--color-secondary);
+}
+
+.search-form button {
+  background-color: var(--color-primary);
+  color: #fff;
+  border: none;
+  border-radius: 0 4px 4px 0;
+  padding: 0.4rem 0.6rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.search-form button:hover {
+  background-color: var(--color-secondary);
+}
+
+/* Ajustes responsive */
+@media (max-width: 768px) {
+  .search-form input[type="text"] {
+    width: 120px;
+  }
+}
+
+@media (max-width: 480px) {
+  .search-form input[type="text"] {
+    width: 80px;
+    font-size: 0.9rem;
+  }
+  .search-form button {
+    padding: 0.3rem 0.5rem;
+    font-size: 0.9rem;
+  }
+}
+
+

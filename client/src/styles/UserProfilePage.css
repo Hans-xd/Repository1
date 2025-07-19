@@ -1,0 +1,236 @@
+/* UserProfilePage.css */
+
+/* Contenedor principal: columna, altura completa y fuente base */
+.user-profile-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, 
+               "Helvetica Neue", Arial, sans-serif;
+  background-color: #f2f4f6;
+  color: #333;
+}
+
+/* Main centra el contenido y da padding */
+.user-profile-page main {
+  flex: 1;
+  width: 100%;
+  max-width: 85%;
+  margin: 2rem auto;
+  padding: 0 1rem;
+  box-sizing: border-box;
+}
+
+/* Encabezado */
+.user-profile-page header {
+  text-align: center;
+  padding: 1.5rem 0;
+  background-color: #fff;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}
+.user-profile-page header h1 {
+  margin: 0;
+  font-size: 2rem;
+}
+
+/* Sección de detalles de perfil */
+.profile-details {
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  margin-bottom: 2rem;
+}
+
+/* Título de sección */
+.profile-details h2 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  color: #222;
+}
+
+/* Filas de inputs alineados */
+.profile-details .profile-row {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+/* Label + input en columna */
+.profile-details .profile-row label,
+.profile-details label {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  font-size: 1rem;
+  color: #555;
+}
+
+/* Inputs estilo limpio */
+.profile-details input[type="text"],
+.profile-details input[type="email"] {
+  margin-top: 0.5rem;
+  padding: 0.6rem 0.8rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.profile-details input:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 3px rgba(0,123,255,0.25);
+}
+
+/* Grupo de botones */
+.profile-details .button-group {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+/* Botones comunes */
+.profile-details button {
+  flex: 1;
+  padding: 0.6rem 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+/* Botón guardar */
+.profile-details .save-btn {
+  background-color: #28a745;
+  color: #fff;
+}
+.profile-details .save-btn:hover {
+  background-color: #218838;
+}
+
+/* Botón cancelar */
+.profile-details .cancel-btn {
+  background-color: #6c757d;
+  color: #fff;
+}
+.profile-details .cancel-btn:hover {
+  background-color: #5a6268;
+}
+
+/* Mensaje de éxito */
+.profile-details .success-message {
+  margin-top: 1rem;
+  font-size: 0.95rem;
+  color: #28a745;
+}
+
+/* Sección de reseñas */
+.user-reviews {
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.user-reviews h2 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  color: #222;
+}
+
+/* Responsive: en pantallas pequeñas las filas apilan vertical */
+@media (max-width: 480px) {
+  .profile-details .profile-row {
+    flex-direction: column;
+  }
+
+  .profile-details .button-group {
+    flex-direction: column;
+  }
+}
+/* Carrusel vertical con snap */
+.user-reviews {
+  
+  margin: 2rem auto;
+}
+
+.carousel-controls {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.carousel-controls button {
+  background: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem 0.75rem;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.2s;
+}
+
+.carousel-controls button:hover {
+  background: #0056b3;
+}
+
+.reviews-carousel-user {
+  height: 300px;               /* Ajusta la altura a tu gusto */
+  overflow-y: auto;
+  scroll-snap-type: y mandatory;
+}
+
+.carousel-item {
+  scroll-snap-align: start;
+  padding: 1rem;
+}
+
+.review-card {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  padding: 1rem;
+}
+
+.review-card .place-name {
+  margin: 0 0 0.5rem;
+  font-size: 1.1rem;
+  color: #222;
+}
+
+.review-card .rating {
+  color: #f5a623;
+  margin-bottom: 0.5rem;
+}
+
+.review-card .comment {
+  margin: 0.5rem 0;
+  color: #555;
+}
+
+.review-card .date {
+  font-size: 0.85rem;
+  color: #888;
+}
+
+/* Estado “sin reseñas” */
+.no-reviews {
+  text-align: center;
+  color: #666;
+  font-style: italic;
+}
+
+/* Responsive: reduce altura en pantallas pequeñas */
+@media (max-width: 480px) {
+  .reviews-carousel {
+    height: 200px;
+  }
+}

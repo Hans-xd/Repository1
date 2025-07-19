@@ -1,0 +1,203 @@
+/* src/styles/global.css */
+
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,500,700|Varela+Round:400,500&display=swap');
+
+:root {
+    --primary: #4caf50;
+    --primary-light: #66bb6a;
+    --secondary: #f7f7f7;
+    --text: #333;
+    --bg-card: #fff;
+    --shadow: rgba(0, 0, 0, 0.1);
+    --transition: 0.3s;
+    --font-sans:    'Roboto', sans-serif;
+    --font-round:   'Varela Round', sans-serif;
+}
+  
+  h1, h2, h3 {
+  font-family: var(--font-round);
+  }
+  
+  body {
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-sans);
+    background: var(--secondary);
+    color: var(--text);
+  }
+  
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+  
+  
+  /* Search */
+  .search-container {
+    position: relative;
+  }
+  
+  .search-icon {
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: transform var(--transition);
+  }
+  
+  .search-input {
+    position: absolute;
+    right: 0;
+    width: 0;
+    padding: 0;
+    opacity: 0;
+    border: 1px solid #ccc;
+    border-radius: 9999px;
+    transition: width var(--transition), opacity var(--transition);
+    font-size: 1rem;
+    outline: none;
+    background: white;
+    color: var(--text);
+    z-index: 20;
+  }
+  
+  .search-container:hover .search-input,
+  .search-input:focus {
+    width: 220px;
+    padding: 0.5rem 1rem;
+    opacity: 1;
+  }
+  
+  .search-container:hover .search-icon {
+    transform: scale(1.1);
+  }
+  
+  /* Suggestions */
+  .suggestions-list {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    width: 220px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px var(--shadow);
+    margin-top: 0.5rem;
+    padding: 0;
+    list-style: none;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 30;
+  }
+  
+  .suggestions-list li {
+    padding: 0.75rem 1rem;
+    cursor: pointer;
+    transition: background var(--transition);
+  }
+  
+  .suggestions-list li:hover {
+    background: var(--secondary);
+  }
+  
+  
+  
+  .reviews-section {
+    margin-top: 2rem;
+  }
+  
+  .reviews-section h3 {
+    text-align: center;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    color: var(--primary);
+  }
+  
+  .reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    padding: 0 1rem;
+  }
+  
+  .review-card {
+    background: var(--bg-card);
+    border-radius: 8px;
+    box-shadow: 0 2px 5px var(--shadow);
+    overflow: hidden;
+    transition: transform var(--transition), box-shadow var(--transition);
+  }
+  
+  .review-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 10px var(--shadow);
+  }
+  
+
+  
+  .review-content {
+    padding: 1rem;
+  }
+  
+  .review-content h4 {
+    margin: 0 0 0.5rem;
+    color: var(--primary);
+  }
+  
+  .review-content .address {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 0.5rem;
+  }
+  
+  .review-content .rating {
+    color: #fbc02d;
+    margin-bottom: 0.5rem;
+  }
+  
+  .review-content .comment {
+    font-size: 0.95rem;
+    line-height: 1.4;
+  }
+  
+  /* Footer */
+  .footer {
+    background: var(--bg-card);
+    text-align: center;
+    padding: 1rem 0;
+    border-top: 1px solid var(--shadow);
+    margin-top: 2rem;
+  }
+  
+  .rating {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.1rem;
+}
+
+.star {
+  font-size: 1.2rem;
+}
+
+/* Estrella llena */
+.star.filled {
+  color: #fbc02d;
+}
+
+/* Media estrella */
+.star.half {
+  position: relative;
+  color: #ccc;
+}
+.star.half::before {
+  content: '★';
+  position: absolute;
+  left: 0;
+  width: 50%;
+  overflow: hidden;
+  color: #fbc02d;
+}
+
+/* Estrella vacía (por defecto) */
+.star:not(.filled):not(.half) {
+  color: #ccc;
+}

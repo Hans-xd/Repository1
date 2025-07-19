@@ -1,0 +1,7 @@
+{
+    "/api/reviews": "/reviews",
+    "/api/login": "/login",
+    "/api/register": "/register",
+    "/api/me": "/me"
+  }
+  

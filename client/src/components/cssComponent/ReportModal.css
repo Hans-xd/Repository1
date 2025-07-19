@@ -1,0 +1,72 @@
+/* ReportModal */
+
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+}
+
+.modal-content {
+  background-color: #fff;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 500px;
+  padding: 1.5rem;
+  position: relative;
+}
+
+.modal-content h2 {
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+
+.modal-content label {
+  display: block;
+  margin-bottom: 0.75rem;
+  font-size: 1rem;
+}
+
+.modal-content textarea {
+  resize: vertical;
+}
+
+.modal-content .success {
+  color: var(--color-success);
+  margin-top: 0.75rem;
+}
+
+.modal-content .error {
+  color: var(--color-error);
+  margin-top: 0.75rem;
+}
+
+.modal-content .close-btn {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.75rem;
+  background: none;
+  font-size: 1.5rem;
+  color: #555;
+}
+
+.modal-content .close-btn:hover {
+  color: var(--color-error);
+}
+
+.modal-content button + button {
+  margin-left: 0.5rem;
+}
+
+/* Responsive en ReportModal */
+@media (max-width: 480px) {
+  .modal-content {
+    padding: 1rem;
+  }
+}

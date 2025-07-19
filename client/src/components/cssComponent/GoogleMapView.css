@@ -1,0 +1,4 @@
+/* Esconde cualquier InfoWindow vacío */
+.gm-style-iw-a + .gm-style-iw {
+  display: none !important;
+}

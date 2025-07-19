@@ -1,0 +1,113 @@
+/* Login.css */
+
+/* Contenedor centrado en pantalla */
+.login-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: #f5f7fa; /* color suave de fondo */
+  padding: 1rem;
+}
+
+/* Formulario */
+.login-form {
+  background: #ffffff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+
+}
+
+/* Título */
+.login-form h2 {
+  margin-bottom: 1.5rem;
+  font-size: 1.75rem;
+  text-align: center;
+  color: #333;
+}
+
+/* Campos de entrada */
+.login-form .form-group {
+  margin-bottom: 1rem;
+}
+
+.login-form label {
+  display: block;
+  margin-bottom: 0.25rem;
+  font-weight: 500;
+  color: #555;
+}
+
+.login-form input[type="text"],
+.login-form input[type="password"] {
+  width: 90%;
+  padding: 0.75rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.2s;
+}
+
+.login-form input:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+/* Botón de envío */
+.login-form button {
+  width: 100%;
+  padding: 0.75rem;
+  margin-top: 1rem;
+  background: #007bff;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.login-form button:hover {
+  background: #0056b3;
+}
+
+/* Mensajes de error */
+.login-form .error {
+  color: #d9534f;
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+}
+
+/* Link de ayuda o registro */
+.login-form .form-footer {
+  margin-top: 1rem;
+  text-align: center;
+  font-size: 0.875rem;
+}
+
+.login-form .form-footer a {
+  color: #007bff;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.login-form .form-footer a:hover {
+  color: #0056b3;
+}
+
+/* Responsive tweaks */
+@media (max-width: 480px) {
+  .login-form {
+    padding: 1.5rem;
+  }
+
+  .login-form h2 {
+    font-size: 1.5rem;
+  }
+}
+
+  

@@ -1,0 +1,71 @@
+/* client/src/cssComponent/FeaturedPlaces.css */
+
+/* Variables y section igual que antes */
+:root {
+  --primary:    #4caf50;
+  --bg-section: #f9fafb;
+  --bg-card:    #ffffff;
+  --shadow:     rgba(0,0,0,0.1);
+  --accent:     #fbc02d;
+  --transition: 0.3s ease;
+}
+
+.featured-places {
+  background: var(--bg-section);
+  padding: 2rem 1rem;
+  margin: 2rem 0;
+}
+
+.featured-places h2 {
+  text-align: center;
+  color: var(--primary);
+  margin-bottom: 1rem;
+}
+
+/* Slick overrides (opcional para ajustar flechas/dots) */
+.slick-slide {
+  padding: 0 10px;
+  box-sizing: border-box;
+}
+.slick-list {
+  margin: 0 -10px;
+}
+
+/* .place-card permanece igual */
+.place-card {
+  background: var(--bg-card);
+  border-radius: 8px;
+  box-shadow: 0 2px 5px var(--shadow);
+  overflow: hidden;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+.place-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 10px var(--shadow);
+}
+.place-image {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+}
+.place-content {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.place-content .place-name {
+  margin: 0 0 0.5rem;
+  color: #333;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+.place-content .rating {
+  margin-top: auto;
+  color: var(--accent);
+  font-size: 1rem;
+  font-weight: 500;
+}
