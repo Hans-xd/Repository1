@@ -26,7 +26,7 @@ export default function Register() {
   const handleSubmit = async e => {
     e.preventDefault();
     setError('');
-    console.log('[FRONT] Form data:', form);
+
 
     // Validación mínima en frontend
     if (
@@ -44,7 +44,7 @@ export default function Register() {
     }
 
     try {
-        console.log('[FRONT] Enviando fetch /api/register …');
+
         const res = await fetch('/api/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -58,17 +58,17 @@ export default function Register() {
         })
       });
 
-        console.log('[FRONT] status:', res.status);
+
 
     let data;
     if (!res.ok) {
     try { data = await res.json(); } catch (_) { data = null; }
-    console.error('[FRONT] error body:', data);
+
     const err = await res.json();
     throw new Error(err.error || 'Registro fallido');
     }
     data = await res.json();
-    console.log('[FRONT] success body:', data);
+
 
       // Éxito → redirige a login
       navigate('/login');

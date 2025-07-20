@@ -20,7 +20,8 @@ export default function Hero() {
         <div className="hero-buttons">
           <a
             onClick={handleFocusNavbarSearch}
-            className="btn btn-primary" href='#'>
+            className="btn btn-primary"
+            href='#'>
             Buscar lugares
           </a>
           <Link to="/mapa" className="btn btn-secondary">

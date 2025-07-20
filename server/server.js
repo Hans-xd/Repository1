@@ -5,6 +5,7 @@ const mysql = require('mysql2/promise');
 // Para manejar sesiones
 const session = require('express-session');
 const axios = require('axios');
+const bcrypt = require('bcrypt');  
 const app = express();
 const PORT = 4000;
 
@@ -111,7 +112,7 @@ app.get('/api/reviews/nearby', async (req, res) => {
         params: {
           location: `${lat},${lng}`,
           radius,
-          key: process.env.GOOGLE_PLACES_KEY,
+          key: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
         }
       }
     );
@@ -183,6 +184,121 @@ app.post('/api/reviews', async (req, res) => {
   }
 });
 
+app.post('/api/place-feedback', async (req, res) => {
+  if (!req.session.user) {
+    return res.status(401).json({ error: 'No autenticado' });
+  }
+  const userId = req.session.user.id;
+  const {
+    placeId,
+    rating,
+    comment,
+    rampas,
+    banos,
+    estacionamiento,
+    accessible_for
+  } = req.body;
+
+  if (!placeId || rating == null) {
+    return res.status(400).json({ error: 'placeId y rating son requeridos' });
+  }
+
+  const conn = await pool.getConnection();
+  try {
+    await conn.beginTransaction();
+
+    // 1) Saca info del lugar de Google
+    const gp = await axios.get(
+      'https://maps.googleapis.com/maps/api/place/details/json',
+      {
+        params: {
+          place_id: placeId,
+          key: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
+          fields: 'name,formatted_address,geometry'
+        }
+      }
+    );
+    const placeData = gp.data.result;
+    const name        = placeData.name;
+    const description = placeData.formatted_address;
+    const lat         = placeData.geometry.location.lat;
+    const lng         = placeData.geometry.location.lng;
+
+    // 2) Upsert en places
+    await conn.query(
+      `INSERT INTO places
+         (name, description, google_place_id, latitude, longitude,
+          rampas, banos, estacionamiento, accessible_for,
+          rating, active, created_at, updated_at)
+       VALUES (?,?,?,?,?,?,?,?,?,
+               ?,1,NOW(),NOW())
+       ON DUPLICATE KEY UPDATE
+         name            = VALUES(name),
+         description     = VALUES(description),
+         latitude        = VALUES(latitude),
+         longitude       = VALUES(longitude),
+         rampas          = VALUES(rampas),
+         banos           = VALUES(banos),
+         estacionamiento = VALUES(estacionamiento),
+         accessible_for  = VALUES(accessible_for),
+         updated_at      = NOW()`,
+      [
+        name, description, placeId, lat, lng,
+        rampas, banos, estacionamiento,
+        JSON.stringify(accessible_for || []),
+        rating
+      ]
+    );
+
+    // 3) Inserta la reseña
+    const [revResult] = await conn.query(
+      `INSERT INTO reviews
+         (id_user, placeId, rating, comment, created_at)
+       VALUES (?,?,?,?,NOW())`,
+      [userId, placeId, rating, comment || null]
+    );
+
+    // 4) Recalcula rating medio
+    const [[{ avgRating }]] = await conn.query(
+      `SELECT AVG(rating) AS avgRating
+         FROM reviews
+        WHERE placeId = ?`,
+      [placeId]
+    );
+    await conn.query(
+      `UPDATE places
+         SET rating = ?
+       WHERE google_place_id = ?`,
+      [Number(avgRating).toFixed(1), placeId]
+    );
+
+    await conn.commit();
+
+    // 5) Devuelve la reseña + nombre del lugar
+    res.status(201).json({
+      id: revResult.insertId,
+      id_user:   userId,
+      placeId:   placeId,
+      placeName: name,           // <— aquí el nombre que pedías
+      rating:    rating,
+      comment:   comment || '',
+      created_at: new Date(),
+      // y los datos del usuario, si quieres:
+      nameP:     req.session.user.name,
+      lastName:  req.session.user.lastName,
+      photoUrl:  req.session.user.photoUrl || null
+    });
+
+  } catch (err) {
+    await conn.rollback();
+    console.error('Error en /api/place-feedback:', err);
+    res.status(500).json({ error: 'Error guardando feedback' });
+  } finally {
+    conn.release();
+  }
+});
+
+
 // POST /api/login
 app.post('/api/login', async (req, res) => {
 
@@ -237,7 +353,7 @@ app.post('/api/logout', (req, res) => {
 
 // POST /api/register → crea un nuevo usuario
 app.post('/api/register', async (req, res) => {
-  console.log('[REGISTER] payload:', req.body);
+
   const { user, password, nombreP, apellidoP, apellidoS, email } = req.body;
 
   // Validación
@@ -246,27 +362,24 @@ app.post('/api/register', async (req, res) => {
   }
 
   try {
-    // Hash de contraseña
+    // 1) Hash de contraseña
     const hashed = await bcrypt.hash(password, 10);
 
-    // Inserción
+    // 2) Inserción en la BD
     const [result] = await pool.query(
       `INSERT INTO usuarios
          (user, pass, nombreP, apellidoP, apellidoS, email, fecha_registro)
        VALUES (?, ?, ?, ?, ?, ?, NOW())`,
       [user, hashed, nombreP, apellidoP, apellidoS || null, email]
     );
-    console.log('[REGISTER] insertId:', result.insertId); 
-    res.status(201).json({ idusuarios: result.insertId });
+
+    return res.status(201).json({ idusuarios: result.insertId });
   } catch (err) {
-    console.error('[REGISTER] Error:', err);
-    if (err.sqlMessage) console.error('[REGISTER] SQL Message:', err.sqlMessage);
+
     if (err.code === 'ER_DUP_ENTRY') {
-      console.log('[REGISTER] Duplicate entry');
       return res.status(409).json({ error: 'Usuario o correo ya registrado.' });
     }
-    console.log('[REGISTER] Unexpected error');
-    res.status(500).json({ error: 'Error al crear usuario.' });
+    return res.status(500).json({ error: 'Error al crear usuario.' });
   }
 });
 
@@ -287,7 +400,7 @@ app.get('/api/places/autocomplete', async (req, res) => {
       {
         params: {
           input,
-          key: process.env.GOOGLE_PLACES_KEY,
+          key: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
           types: 'establishment|geocode',
           components: 'country:cl',
         }

@@ -23,7 +23,9 @@ body {
 /* client/src/cssComponent/ReviewsCarousel.css */
 
 .reviews-section {
-  margin: 2rem 0;
+  background: var(--bg-section);
+    padding: 2rem 1rem;
+    margin: 2rem 0;
 }
 
 .reviews-section h3 {

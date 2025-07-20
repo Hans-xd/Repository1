@@ -1,0 +1,26 @@
+/* src/components/StarRating.css */
+.star-rating {
+  display: inline-flex;
+  user-select: none;
+}
+
+.star {
+  font-size: 1.6rem;
+  color: #ccc;
+  cursor: pointer;
+  margin-right: 0.1rem;
+  position: relative;
+}
+
+/* estrella llena */
+.star.filled {
+  color: gold;
+}
+
+/* media estrella: usamos un gradiente sobre el texto */
+.star.half {
+  color: transparent;
+  background: linear-gradient(90deg, gold 50%, #ccc 50%);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
